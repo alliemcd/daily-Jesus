@@ -37,14 +37,14 @@
       const content = document.createElement('div');
       content.className = 'overlay';
       content.innerHTML = `
-        <h2>Today’s Scripture</h2>
+        <h2>Scirpture of the Day</h2>
         <blockquote>“${verse.Scripture}”</blockquote>
         <p class="ref">${verse.Reference}</p>
         <a href="${verse.Link}" target="_blank" class="btn">Read More</a>
 
         <hr style="margin:2rem 0; opacity:0.4;">
 
-        <h2>Daily Quote</h2>
+        <h2>Quote of the Day</h2>
         <blockquote>“${verse.Quote}”</blockquote>
         <p class="ref">– ${verse["Quote Author"] || ""}</p>
         <a href="${verse["Quote Link"]}" target="_blank" class="btn">Read More</a>
