@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Scripture</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app"></div>
+
+  <script>
+    async function loadTodayScripture() {
+      const sheetURL = "https://opensheet.elk.sh/1UejDe7iFO6nt5kzpAIuBKlJFofwdzUnUcvYLASRlZjg/Scripture";
+      const res = await fetch(sheetURL);
+      const data = await res.json();
+
+      const today = new Date().toISOString().split('T')[0];
+      const verse = data.find(item => item.Date === today);
+
+      const app = document.getElementById('app');
+
+      if (!verse) {
+        app.innerHTML = `
+          <div class="no-verse">
+            <h1>No verse found for today.</h1>
+            <p>Add an entry in your Google Sheet for ${today}.</p>
+          </div>
+        `;
+        return;
+      }
+
+      const section = document.createElement('section');
+      section.className = 'scripture';
+      section.style.backgroundImage = `url(${verse["Image URL"]})`;
+
+      const content = document.createElement('div');
+      content.className = 'overlay';
+      content.innerHTML = `
+        <h2>Today’s Scripture</h2>
+        <blockquote>“${verse.Scripture}”</blockquote>
+        <p class="ref">${verse.Reference}</p>
+        <a href="${verse.Link}" target="_blank" class="btn">Read More</a>
+      `;
+
+      section.appendChild(content);
+      app.appendChild(section);
+    }
+
+    loadTodayScripture();
+  </script>
+</body>
+</html>
