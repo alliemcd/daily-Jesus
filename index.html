@@ -15,9 +15,9 @@
       const res = await fetch(sheetURL);
       const data = await res.json();
 
-      const today = new Date().toISOString().split('T')[0];
-      const verse = data.find(item => item.Date === today);
-      const isDecember = today.getMonth() + 1 === 12;
+      const todayStr = new Date().toISOString().split('T')[0];
+      const now = new Date();  // needed for December check
+      const isDecember = now.getMonth() + 1 === 12;
 
       const app = document.getElementById('app');
 
