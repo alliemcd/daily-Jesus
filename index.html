@@ -15,8 +15,12 @@
       const res = await fetch(sheetURL);
       const data = await res.json();
 
-      const todayStr = new Date().toISOString().split('T')[0];
-      const now = new Date();  // needed for December check
+      const now = new Date();
+      const todayStr = now.getFullYear() + '-' +
+                       String(now.getMonth() + 1).padStart(2, '0') + '-' +
+                       String(now.getDate()).padStart(2, '0');
+
+      console.log(todayStr);  // needed for December check
       const isDecember = now.getMonth() + 1 === 12;
 
       const verse = data.find(item => item.Date === todayStr);
@@ -24,12 +28,14 @@
       const app = document.getElementById('app');
 
       if (!verse) {
+        // If no verse matches today
         app.innerHTML = `
-          <div class="no-verse">
+          <div class="no-verse" style="text-align:center; padding:2rem;">
             <h1>No verse found for today.</h1>
+            <p>Please check back later or make sure the sheet has today's date.</p>
           </div>
         `;
-        return;
+        return; // stop further rendering
       }
 
       const section = document.createElement('section');
