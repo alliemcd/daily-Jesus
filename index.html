@@ -19,13 +19,14 @@
       const now = new Date();  // needed for December check
       const isDecember = now.getMonth() + 1 === 12;
 
+      const verse = data.find(item => item.Date === todayStr);
+
       const app = document.getElementById('app');
 
       if (!verse) {
         app.innerHTML = `
           <div class="no-verse">
             <h1>No verse found for today.</h1>
-            <p>Add an entry in your Google Sheet for ${today}.</p>
           </div>
         `;
         return;
