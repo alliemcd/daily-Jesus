@@ -25,6 +25,12 @@
 
       const verse = data.find(item => item.Date === todayStr);
 
+      const dateObj = new Date(verse.Date);
+      const formattedDate = dateObj.toLocaleDateString(undefined, {
+        month: 'long',   // full month name
+        day: 'numeric'   // day without leading zero
+      });
+      
       const app = document.getElementById('app');
 
       if (!verse) {
@@ -47,7 +53,7 @@
       if (isDecember) {
     // --- DECEMBER SEASONAL LAYOUT ---
       content.innerHTML = `
-        <h2>${verse.Date}</h2>
+        <h2>${formattedDate}</h2>
   
         <blockquote>“${verse.Scripture}”</blockquote>
         <p class="ref">${verse.Reference}</p>
